@@ -723,7 +723,7 @@ ul.row {
     ============================= */
 
 .post-meta-list {
-  display: flex;
+  flex-direction: column;
 }
 
 .post-meta-list strong {
