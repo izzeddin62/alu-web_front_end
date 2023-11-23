@@ -18,13 +18,13 @@
                                 $('<th>').text('Lastname')
                             )
 
-                        ),
-                        $('<tbody>')),
+                        ), $('<tbody>')
+                    ),
 
                 )
         }
-        function addNewMember(firstName, lastName) {
-            $('tbody').append(
+        function addNewMember(firstName, lastName, position) {
+            $('tbody')[position === 'before' ? "prepend" : "append"](
                 $('<tr>').append(
                     $('<td>').text(firstName),
                     $('<td>').text(lastName),
@@ -37,13 +37,28 @@
 
         }
 
+        function createForm() {
+            $("table").before(
+                $("<form>").append(
+                    $("<input>").attr({ type: "text", id: "firstName", required: true }),
+                    $("<input>").attr({ type: "text", id: "lastName", required: true }),
+                    $("<select>").attr({ id: "position", required: true }).append(
+                        $("<option>").attr({ value: "after" }).text("After"),
+                        $("<option>").attr({ value: "before" }).text("Before")
+                    ),
+                    $("<input>").attr({ type: "submit", value: "Add" })
+                ).submit(function (e) {
+                    e.preventDefault();
+                    addNewMember($("#firstName").val(), $("#lastName").val(), $("#position").val());
+                })
+            )
+        }
+
+
+
         $(document).ready(function () {
             createFamilyTree();
-            addNewMember('Guillaume', 'Salva');
-            addNewMember('Arielle', 'Snizt');
-            addNewMember('Fanette', 'Snizt');
-            addNewMember('Gerard', 'Snizt');
-            addNewMember('Victor', 'Salva');
+            createForm();
 
         });
     </script>
