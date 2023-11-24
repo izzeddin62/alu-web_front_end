@@ -23,6 +23,9 @@
                             type: "DELETE",
                             success: function (result) {
                                 $(`#row-${id}`).remove()
+                            },
+                            fail: function () {
+                                alert("Post was not deleted")
                             }
                         })
                     }),
