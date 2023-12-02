@@ -82,7 +82,7 @@ if (!window.localStorage) {
 
 
 function addItemToCart(item) {
-    localStorage.setItem(item, JSON.stringify(true));
+    sessionStorage.setItem(item, JSON.stringify(true));
 }
 
 function createStore() {
@@ -98,9 +98,9 @@ function createStore() {
 }
 
 function displayCart() {
-    if (localStorage.length > 0) {
+    if (sessionStorage.length > 0) {
         const p = document.createElement('p');
-        p.textContent = `You previously had ${localStorage.length} items in your cart`;
+        p.textContent = `You previously had ${sessionStorage.length} items in your cart`;
         document.body.appendChild(p);
         
     }
