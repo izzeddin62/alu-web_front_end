@@ -4,9 +4,19 @@ function setCookies() {
 
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 10);
+    Cookies.set('firstname', firstName, { expires: 10 });
+    Cookies.set('email', email, { expires: 10 });
+    showWelcomeMessageOrForm()
+}
 
-    document.cookie = `firstname=${firstName}; expires=${expirationDate.toUTCString()}`;
-    document.cookie = `email=${email}; expires=${expirationDate.toUTCString()}`;
+function setCookiesAndShowWelcomeMessage() {
+    const firstName = document.getElementById('firstname')?.value;
+    const email = document.getElementById('email')?.value;
+
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 10);
+    Cookies.set('firstname', firstName, { expires: 10 });
+    Cookies.set('email', email, { expires: 10 });
     showWelcomeMessageOrForm()
 }
 
@@ -18,17 +28,13 @@ function showCookies() {
 }
 
 function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    const cookie = cookies.find(cookie => cookie.trim().startsWith(name));
-    if (!cookie) return '';
-    return cookie.split('=')[1];
+    return Cookies.get(name);
 }
 
 function showForm() {
     const form = document.getElementById('login-form');
     form.style.display = 'block';
     const loggedInPara = document.getElementById('loggedin');
-    console.log(loggedInPara, '=========')
     loggedInPara.style.display = 'none';
 }
 
@@ -38,15 +44,14 @@ function hideForm() {
 }
 
 function deleteCookiesAndShowForm() {
-    document.cookie = 'firstname=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
-    document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    Cookies.remove('firstname');
+    Cookies.remove('email');
     showForm();
 }
 function showWelcomeMessageOrForm() {
     const firstName = getCookie('firstname');
     const email = getCookie('email');
     if (firstName && email) {
-        // const loggedInPara = document.getElementById('loggedin');
         const h1 = document.createElement('h1');
         h1.id = 'loggedin';
         h1.textContent = `Welcome ${firstName}`;
