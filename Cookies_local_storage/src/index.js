@@ -69,3 +69,39 @@ function showWelcomeMessageOrForm() {
         showForm();
     }
 }
+
+// shopping cart example
+
+const availableItems = ["Shampoo", "Soap", "Sponge", "Water"];
+if (!window.localStorage) {
+    alert('Sorry, your browser does not support Web storage. Try again with a better one');
+} else {
+    createStore();
+    displayCart();
+}
+
+
+function addItemToCart(item) {
+    localStorage.setItem(item, JSON.stringify(true));
+}
+
+function createStore() {
+    const ul = document.createElement('ul');
+    document.body.appendChild(ul);
+    for (const item of availableItems) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        li.addEventListener('click', () => addItemToCart(item));
+        ul.appendChild(li);
+    }
+
+}
+
+function displayCart() {
+    if (localStorage.length > 0) {
+        const p = document.createElement('p');
+        p.textContent = `You previously had ${localStorage.length} items in your cart`;
+        document.body.appendChild(p);
+        
+    }
+}
