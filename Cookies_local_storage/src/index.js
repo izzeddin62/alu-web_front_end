@@ -11,9 +11,15 @@ function setCookies() {
 
 function showCookies() {
     const cookies = document.cookie;
-
     const para = document.createElement('p');
-    para.innerHTML = `Cookies: ${cookies}`;
+    para.textContent = `Email: ${getCookie('email')}, Firstname: ${getCookie('firstname')}`;
     document.body.appendChild(para);
     
+}
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    const cookie = cookies.find(cookie => cookie.trim().startsWith(name));
+    if (!cookie) return '';
+    return cookie.split('=')[1];
 }
